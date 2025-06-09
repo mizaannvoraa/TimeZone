@@ -18,7 +18,7 @@ const ServiceFeatures = () => {
     {
       title: "PROFESSIONAL HOSTS",
       description: "Our dedicated party hosts ensure everything runs smoothly.",
-      image: "/assets/wychbel2.webp",
+      image: "/assets/whychbel2.png",
       bgColor: "bg-[#003466]"
     },
     {
