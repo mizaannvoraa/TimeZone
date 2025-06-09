@@ -37,9 +37,9 @@ const ExploreSection = ({ city }) => {
   // Mumbai malls and prices (existing)
   const mumbaiMalls = React.useMemo(
     () => ({
+      lp: "Phoenix Palladium Mall Lower Parel Mumbai",
       mld: "Inorbit Mall Malad Mumbai",
       vsh: "Inorbit Mall Vashi Navi Mumbai",
-      lp: "Phoenix Palladium Mall Lower Parel Mumbai",
       rml: "R Mall Thane Mumbai",
       gtk: "RCity Mall Ghatkopar Mumbai",
       krl: "Phoenix MarketCity Mall - Level 1",

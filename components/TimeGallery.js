@@ -18,8 +18,8 @@ const TimeGallery = () => {
   if (isMobile === null) return null; // Prevent hydration mismatch
 
   const image = isMobile
-    ? { src: "/assets/photogallery.webp", alt: "Mobile Gallery Image" }
-    : { src: "/assets/photogallery.webp", alt: "Desktop Gallery Image" };
+    ? { src: "/assets/Photogallery.webp", alt: "Mobile Gallery Image" }
+    : { src: "/assets/Photogallery.webp", alt: "Desktop Gallery Image" };
 
   return (
     <div>
