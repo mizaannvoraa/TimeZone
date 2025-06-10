@@ -104,7 +104,6 @@ export default function BannerSlider() {
     }),
     onSubmit: async (values, { resetForm }) => {
       setIsSubmitting(true);
-      setStatus("Submitting...");
 
       // Pull UTM values from state or localStorage
       const getParam = (key) =>
