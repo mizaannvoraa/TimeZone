@@ -11,8 +11,8 @@ const poppins = Poppins({
 });
 
 export const metadata = {
-  title: "description",
-  description: "Experience unlimited fun at Timezone India! Enjoy arcade games, bowling, bumper cars, VR, and more at our family entertainment centers across India.",
+  title: "Arcade & Family Entertainment Center | Timezone India",
+  description: "Discover endless fun at Timezone India! From arcade games to bowling and bumper cars, our family entertainment centers offer something for all. Visit us today!",
    icons: {
     icon: "/favicon.ico",
     shortcut: "/favicon.ico",
