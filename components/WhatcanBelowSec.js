@@ -5,12 +5,12 @@ import Image from "next/image";
 
 const highlights = [
   {
-    src: "/assets/WhatBel6.jpg",
+    src: "/assets/WhatBel6.webp",
     alt: "Dedicated Party Host",
     text: "DEDICATED PARTY HOST",
   },
   {
-    src: "/assets/WhatBel2.jpg",
+    src: "/assets/WhatBel1.webp",
     alt: "Party Space & Decor",
     text: "PARTY SPACE & DECOR",
   },
@@ -45,7 +45,7 @@ export default function WhatcanBelowSec() {
             key={index}
             className="bg-white shadow-[10px_10px_15px_rgba(0,0,0,0.2)] overflow-hidden flex flex-col items-center"
           >
-            <div className="w-full md:h-75 h-80 relative">
+            <div className="w-full md:h-75 h-80  relative">
               <Image
                 src={item.src}
                 alt={item.alt}
