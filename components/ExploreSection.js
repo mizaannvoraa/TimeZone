@@ -15,8 +15,8 @@ const ExploreSection = ({ city }) => {
     () => ({
       ambgur: "Ambience Mall Gurgaon",
       ambvas: "Ambience Mall Vasant Kunj",
-      gaur: "Gaur City Mall",
-      mgf: "MGF Metropolitan Mall",
+      gaur: "Gaur City Mall Noida",
+      mgf: "MGF Metropolitan Mall Gurgaon",
       pacnit: "Pacific Mall NIT Faridabad",
       pactag: "Pacific Mall Tagore Garden",
       vegas: "Vegas Mall Delhi",
@@ -39,21 +39,21 @@ const ExploreSection = ({ city }) => {
     () => ({
       gtk: "RCity Mall Ghatkopar Mumbai",
       lp: "Phoenix Palladium Mall Lower Parel Mumbai",
-      mld: "Inorbit Mall Malad Mumbai",
       vsh: "Inorbit Mall Vashi Navi Mumbai",
       rml: "R Mall Thane Mumbai",
       krl: "Phoenix MarketCity Mall - Level 1",
+      xpe: "Xperia Mall Dombivli Mumbai",
     }),
     []
   );
 
   const mumbaiPrices = {
-    mld: ["₹1,500", "₹2,000", ""],
     vsh: ["₹1,500", "₹2,000", ""],
     lp: ["₹1,500", "₹2,000", "₹3,000"],
     rml: ["₹1,500", "₹2,000", ""],
     gtk: ["₹1,500", "₹2,000", "₹3,000"],
     krl: ["₹1,500", "₹2,000", "₹3,000"],
+    xpe: ["₹1,500", "₹2,000", ""],
   };
 
   // Packages remain the same

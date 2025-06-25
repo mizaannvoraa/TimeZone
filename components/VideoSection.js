@@ -10,16 +10,16 @@ const videos = [
     title: "Gaming Center Experience 1",
     thumbnail: "https://img.youtube.com/vi/QQa3sYzkx58/maxresdefault.jpg",
   },
-  {
-    id: "LyNDwH4xDrk",
-    title: "Gaming Center Experience 2",
-    thumbnail: "https://img.youtube.com/vi/LyNDwH4xDrk/maxresdefault.jpg",
-  },
-  {
-    id: "SVyrG2DBWu0",
-    title: "Gaming Center Experience 3",
-    thumbnail: "https://img.youtube.com/vi/SVyrG2DBWu0/maxresdefault.jpg",
-  },
+  // {
+  //   id: "LyNDwH4xDrk",
+  //   title: "Gaming Center Experience 2",
+  //   thumbnail: "https://img.youtube.com/vi/LyNDwH4xDrk/maxresdefault.jpg",
+  // },
+  // {
+  //   id: "SVyrG2DBWu0",
+  //   title: "Gaming Center Experience 3",
+  //   thumbnail: "https://img.youtube.com/vi/SVyrG2DBWu0/maxresdefault.jpg",
+  // },
   {
     id: "DxEn80SDc48",
     title: "Gaming Center Experience 4",
@@ -30,16 +30,16 @@ const videos = [
     title: "Gaming Center Experience 5",
     thumbnail: "https://img.youtube.com/vi/p63KUGN2P_A/maxresdefault.jpg",
   },
-  {
-    id: "QmUUIUJYwYQ",
-    title: "Gaming Center Experience 6",
-    thumbnail: "https://img.youtube.com/vi/QmUUIUJYwYQ/maxresdefault.jpg",
-  },
-  {
-    id: "lYnEAGaX2TY",
-    title: "Gaming Center Experience 7",
-    thumbnail: "https://img.youtube.com/vi/lYnEAGaX2TY/maxresdefault.jpg",
-  },
+  // {
+  //   id: "QmUUIUJYwYQ",
+  //   title: "Gaming Center Experience 6",
+  //   thumbnail: "https://img.youtube.com/vi/QmUUIUJYwYQ/maxresdefault.jpg",
+  // },
+  // {
+  //   id: "lYnEAGaX2TY",
+  //   title: "Gaming Center Experience 7",
+  //   thumbnail: "https://img.youtube.com/vi/lYnEAGaX2TY/maxresdefault.jpg",
+  // },
 ]
 
 const VISIBLE_COUNT = 3
@@ -120,7 +120,7 @@ const VideoSection = () => {
 
       {/* Thumbnails Slider */}
       <div className="relative flex items-center w-full max-w-6xl">
-        <button
+        {/* <button
           onClick={handlePrev}
           disabled={!canGoPrev}
           className={`absolute cursor-pointer left-0 z-10 p-2 md:p-3 rounded-full shadow-lg transition-all duration-300 ${
@@ -131,7 +131,7 @@ const VideoSection = () => {
           aria-label="Previous videos"
         >
           <FaChevronLeft className="text-[13px] md:text-xl" />
-        </button>
+        </button> */}
 
         <div className="flex overflow-hidden w-full mx-8 md:mx-16">
           <div className="flex gap-[6px] md:gap-4 md:p-2 p-1 w-full">
@@ -165,7 +165,7 @@ const VideoSection = () => {
           </div>
         </div>
 
-        <button
+        {/* <button
           onClick={handleNext}
           disabled={!canGoNext}
           className={`absolute right-0 z-10 p-2 cursor-pointer md:p-3 rounded-full shadow-lg transition-all duration-300 ${
@@ -176,7 +176,7 @@ const VideoSection = () => {
           aria-label="Next videos"
         >
           <FaChevronRight className="text-[13px] md:text-xl" />
-        </button>
+        </button> */}
       </div>
     </div>
   )

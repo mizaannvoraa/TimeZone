@@ -16,30 +16,32 @@ const bannerImage = {
 // Venue options based on location
 const venueOptions = {
   mumbai: [
-    "Inorbit Mall Malad Mumbai",
+    "Xperia Mall Dombivli Mumbai",
     "Inorbit Mall Vashi Navi Mumbai",
     "Phoenix Palladium Mall Lower Parel Mumbai",
     "R Mall Thane Mumbai",
     "RCity Mall Ghatkopar Mumbai",
-    "Phoenix MarketCity Mall - Level 1"
+    "Phoenix MarketCity Mall - Level 1",
   ],
   delhi: [
     "Ambience Mall Gurgaon",
     "Ambience Mall Vasant Kunj",
-    "Gaur City Mall",
-    "MGF Metropolitan Mall",
+    "Gaur City Mall Noida",
+    "MGF Metropolitan Mall Gurgaon",
     "Pacific Mall NIT Faridabad",
     "Pacific Mall Tagore Garden",
-    "Vegas Mall Delhi"
-  ]
+    "Vegas Mall Delhi",
+  ],
 };
 
 export default function BannerSlider() {
   const pathname = usePathname();
-  
+
   // Determine initial venues based on pathname (available on server)
   const getInitialVenues = () => {
-    return pathname?.includes('/delhi') ? venueOptions.delhi : venueOptions.mumbai;
+    return pathname?.includes("/delhi")
+      ? venueOptions.delhi
+      : venueOptions.mumbai;
   };
 
   /* ――― State & helpers ――― */
@@ -137,8 +139,8 @@ export default function BannerSlider() {
           }
         );
 
-       resetForm();
-    router.push("/thank-you"); 
+        resetForm();
+        router.push("/thank-you");
       } catch (err) {
         console.error("Error submitting form", err);
         setStatus("Something went wrong. Please try again.");
@@ -148,12 +150,12 @@ export default function BannerSlider() {
       }
     },
   });
-const router = useRouter();
+  const router = useRouter();
 
   return (
     <div className="relative w-full overflow-hidden">
       {/* Banner image */}
-      <div className="relative w-full aspect-[16/9] md:aspect-[21/9]">
+      <div className="relative w-full hidden md:block md:aspect-[21/9]">
         <Image
           src={bannerImage.src}
           alt={bannerImage.alt}
@@ -162,9 +164,21 @@ const router = useRouter();
           className="object-cover"
         />
       </div>
-
+      <div className="relative md:hidden block w-full h-full">
+        <Image
+          src='/assets/mobban.webp'
+          alt='mobile banner'
+          width={768} // Appropriate mobile width
+          height={500} // Appropriate mobile height
+          className="w-full h-auto object-cover" // Changed to h-auto
+          style={{ display: "block" }} // Ensure proper display
+        />
+      </div>
       {/* Enquiry Form */}
-      <div id="form" className="w-full px-2 pb-1 sm:px-6 xl:px-10 xl:absolute xl:top-[2.7vw] xl:right-[10vw] xl:justify-end z-20 flex justify-center mt-4 lg:mt-0">
+      <div
+        id="form"
+        className="w-full px-2 pb-1 sm:px-6 xl:px-10 xl:absolute xl:top-[2.7vw] xl:right-[10vw] xl:justify-end z-20 flex justify-center mt-4 lg:mt-0"
+      >
         <div className="w-full lg:max-w-full xl:max-w-[400px]">
           <div className="bg-white rounded-xl lg:shadow-xl p-4 sm:p-5 md:p-4 lg:p-2 xl:p-5 border border-gray-100">
             {/* Header */}
@@ -182,9 +196,7 @@ const router = useRouter();
             {status && (
               <div
                 className={`text-center font-medium mb-4 text-sm ${
-                  status.includes("success")
-                    ? "text-green-600"
-                    : "text-red-600"
+                  status.includes("success") ? "text-green-600" : "text-red-600"
                 }`}
               >
                 {status}

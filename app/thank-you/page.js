@@ -9,7 +9,7 @@ const Page = () => {
 
   // If it's home "/", link to "/"
   // Else, return to the same path (like "/delhi", "/mumbai")
-  const backHref = pathname === "/" ? "/" : pathname;
+  // const backHref = pathname === "/" ? "/" : pathname;
 
   return (
     <div
@@ -26,7 +26,7 @@ const Page = () => {
           Thank you for expressing interest. Our expert will contact you
           shortly.
         </p>
-        <Link href={backHref} passHref>
+        <Link href='/'>
           <div className="inline-block bg-[#002F63] hover:bg-[#4b5561] text-white font-semibold px-6 py-3 rounded-full cursor-pointer">
             ⬅ GO BACK
           </div>

@@ -11,7 +11,7 @@ export default function Footer() {
       <div className="w-full max-w-6xl px-1  mx-auto">
         <div className="relative w-36  h-12 sm:w-44 sm:h-14 md:w-52 md:h-16">
           <Image
-            src="/assets/TzLogo.svg"
+            src="/assets/TzLogo.webp"
             alt="Timezone Logo"
             fill
             className="object-contain"
