@@ -33,8 +33,3 @@ html {
 input[type="date"]::placeholder {
 color: gray !important;
 }
-
-/* input[type="date"]::-webkit-calendar-picker-indicator {
-  filter: invert(.4) !important; /* This inverts the calendar icon color */
-  /* cursor: pointer; */
-/* } */
