@@ -13,7 +13,7 @@ const ServiceFeatures = () => {
     {
       title: "EXCITING ATTRACTIONS",
       description:
-        "From VR experiences to arcade games, we have something for every age. Every birthday party package includes.",
+        "From VR experiences to arcade games, we have something for every age.",
       image: "/assets/wychbel3.webp",
       bgColor: "bg-[#003466]",
     },
