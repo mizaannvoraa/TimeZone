@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import { useEffect, useState } from 'react';
-import Image from 'next/image';
+import { useEffect, useState } from "react";
+import Image from "next/image";
 
 const TimeGallery = () => {
   const [isMobile, setIsMobile] = useState(null);
@@ -30,8 +30,8 @@ const TimeGallery = () => {
       </div>
 
       <div className="relative w-full max-w-[1390px] mx-auto  md:px-5 mt-10">
-                <div className="relative aspect-[23/9] md:aspect-[23/9] w-full">
-        {/* <div className="relative h-[300px] xl:h-[500px] lg:h-[430px] md:h-[300px] w-full"> */}
+        <div className="relative aspect-[23/9] md:aspect-[23/9] w-full">
+          {/* <div className="relative h-[300px] xl:h-[500px] lg:h-[430px] md:h-[300px] w-full"> */}
           <Image
             src={image.src}
             alt={image.alt}
