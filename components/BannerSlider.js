@@ -1,5 +1,6 @@
 "use client";
-
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { useFormik } from "formik";
@@ -87,7 +88,7 @@ export default function BannerSlider() {
       fullName: "",
       phone: "",
       email: "",
-      people: "",
+      date: null,
       venue: "",
       terms: false,
     },
@@ -97,10 +98,7 @@ export default function BannerSlider() {
         .required("Phone number is required")
         .matches(/^\d{10}$/, "Phone number must be exactly 10 digits"),
       email: Yup.string().email("Invalid email").required("Email is required"),
-      people: Yup.number()
-        .min(1, "At least 1 person")
-        .max(10, "Only up to 10 people can come")
-        .required("Required"),
+      date: Yup.date().required("Date is required").nullable(),
       venue: Yup.string().required("Please select a venue"),
       terms: Yup.boolean().oneOf([true], "You must accept the terms"),
     }),
@@ -130,7 +128,7 @@ export default function BannerSlider() {
 
       try {
         await fetch(
-          "https://script.google.com/macros/s/AKfycbxd_ooE1Wp0p5Wqnwx-Sg7hYFcA3nS4qwuAxiWcRN7AsFQaCa_3lZJAxAsvkp7AGXg/exec",
+          "https://script.google.com/macros/s/AKfycbwcedZP1_ac07FWipEUmSqIWd2Sl4ut5DRJvY7cXgc6A7ON3s7QhpGahebXmSliqV_B/exec",
           {
             method: "POST",
             mode: "no-cors",
@@ -166,8 +164,8 @@ export default function BannerSlider() {
       </div>
       <div className="relative md:hidden block w-full h-full">
         <Image
-          src='/assets/mobban.webp'
-          alt='mobile banner'
+          src="/assets/mobban.webp"
+          alt="mobile banner"
           width={768} // Appropriate mobile width
           height={500} // Appropriate mobile height
           className="w-full h-auto object-cover" // Changed to h-auto
@@ -273,29 +271,29 @@ export default function BannerSlider() {
                   </p>
                 )}
               </div>
-
-              {/* Number of People */}
-              <div>
-                <input
-                  type="number"
-                  name="people"
-                  placeholder="Number of People *"
-                  min="1"
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  value={formik.values.people}
-                  className={`w-full border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-200 ${
-                    formik.touched.people && formik.errors.people
-                      ? "border-red-500 bg-red-50"
-                      : "border-gray-300"
-                  }`}
-                />
-                {formik.touched.people && formik.errors.people && (
-                  <p className="text-red-500 text-xs mt-1">
-                    {formik.errors.people}
-                  </p>
-                )}
-              </div>
+{/* Date */}
+<div>
+  <DatePicker
+    selected={formik.values.date}
+    onChange={(date) => formik.setFieldValue('date', date)}
+    onBlur={() => formik.setFieldTouched('date', true)}
+    placeholderText="Select Date *"
+    dateFormat="dd/MM/yyyy"
+    minDate={new Date()} // Prevents selecting past dates
+    className={`w-full border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-200 ${
+      formik.touched.date && formik.errors.date
+        ? "border-red-500 bg-red-50"
+        : "border-gray-300"
+    }`}
+    wrapperClassName="w-full"
+    popperClassName="z-50"
+  />
+  {formik.touched.date && formik.errors.date && (
+    <p className="text-red-500 text-xs mt-1">
+      {formik.errors.date}
+    </p>
+  )}
+</div>
 
               {/* Venue */}
               <div>
@@ -308,7 +306,7 @@ export default function BannerSlider() {
                     formik.touched.venue && formik.errors.venue
                       ? "border-red-500 bg-red-50"
                       : "border-gray-300"
-                  } ${formik.values.venue ? "text-gray-800" : "text-gray-500"}`}
+                  } ${formik.values.venue ? "text-black" : "text-gray-500"}`}
                 >
                   <option value="" disabled>
                     Select your Venue *

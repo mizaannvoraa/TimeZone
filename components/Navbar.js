@@ -9,23 +9,20 @@ export default function Navbar() {
       <div className="max-w-screen-xl mx-auto px-4 py-3 flex justify-between items-center">
         {/* Logo with Link */}
         <Link href="/" passHref>
-  <div className="relative w-36 h-12 sm:w-44 sm:h-14 md:w-52 md:h-16">
-    <Image
-      src="/assets/TzLogo.webp"
-      alt="Timezone Logo"
-      fill
-      className="object-contain"
-      priority
-    />
-  </div>
-</Link>
-
-
+          <div className="relative w-36 h-12 sm:w-44 sm:h-14 md:w-52 md:h-16">
+            <Image
+              src="/assets/TzLogo.webp"
+              alt="Timezone Logo"
+              fill
+              sizes="(min-width: 768px) 208px, (min-width: 640px) 176px, 144px"
+              className="object-contain"
+              priority
+            />
+          </div>
+        </Link>
         {/* Menu Items */}
         <div className="flex space-x-6">
-          {[
-            { label: "FAQs", href: "#faqs" },
-          ].map((item, idx) => (
+          {[{ label: "FAQs", href: "#faqs" }].map((item, idx) => (
             <Link
               key={idx}
               href={item.href}
