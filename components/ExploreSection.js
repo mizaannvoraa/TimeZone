@@ -178,8 +178,8 @@ const pricesByMall = isMalad
     <div
       className={`${
         visiblePackages.length === 2
-          ? " md:h-[880px] h-[1400px]"
-          : "sm:h-[1360px] md:h-[1480px] h-[1943px]"
+          ? " md:h-[850px] sm:h-[810px] h-[1400px]"
+          : "sm:h-[1360px] md:h-[1480px] h-[1963px]"
       } lg:h-[800px]  `}
     >
       <section className="bg-[#003466] md:h-[460px] lg:h-[390px] h-[430px] py-5 px-2 md:px-4">
