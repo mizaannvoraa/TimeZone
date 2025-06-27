@@ -56,6 +56,20 @@ const ExploreSection = ({ city }) => {
     krl: ["₹1,500", "₹2,000", "₹3,000"],
     xpe: ["₹1,500", "₹2,000", ""],
   };
+  const puneMalls = React.useMemo(
+    () => ({
+      smp: "Seasons Mall Pune",
+      pmp: "Phoenix Marketcity Pune",
+      pmm: "Phoenix Mall of the Millennium Pune",
+    }),
+    []
+  );
+
+  const punePrices = {
+    smp: ["₹1,099", "₹1,399", ""],
+    pmp: ["₹1,099", "₹1,399",""],
+    pmm: ["₹1,099", "₹1,399", ""],
+  };
 
   // Malad specific pricing - only Classic and Premium
   const maladPrices = {
@@ -113,31 +127,45 @@ const ExploreSection = ({ city }) => {
       label: "Ultimate Remarkable Party",
     },
   ];
+const isPune = pathname.startsWith("/pune");
 
   // State for selected mall
   // Default to first key of current malls based on route
-  const [selectedMall, setSelectedMall] = useState(() => {
-    if (isMalad) return "malad";
-    return isDelhi ? Object.keys(delhiMalls)[0] : Object.keys(mumbaiMalls)[0];
-  });
+const [selectedMall, setSelectedMall] = useState(() => {
+  if (isMalad) return "malad";
+  if (isDelhi) return Object.keys(delhiMalls)[0];
+  if (isPune) return Object.keys(puneMalls)[0];
+  return Object.keys(mumbaiMalls)[0];
+});
 
-  useEffect(() => {
-    if (isMalad) {
-      setSelectedMall("malad");
-    } else {
-      setSelectedMall(
-        isDelhi ? Object.keys(delhiMalls)[0] : Object.keys(mumbaiMalls)[0]
-      );
-    }
-  }, [isDelhi, isMalad, delhiMalls, mumbaiMalls]);
+useEffect(() => {
+  if (isMalad) {
+    setSelectedMall("malad");
+  } else if (isDelhi) {
+    setSelectedMall(Object.keys(delhiMalls)[0]);
+  } else if (isPune) {
+    setSelectedMall(Object.keys(puneMalls)[0]);
+  } else {
+    setSelectedMall(Object.keys(mumbaiMalls)[0]);
+  }
+}, [isDelhi, isMalad, isPune, delhiMalls, mumbaiMalls, puneMalls]);
+
 
   const handleChange = (e) => {
     setSelectedMall(e.target.value);
   };
 
   // Decide malls and prices based on route
-  const malls = isDelhi ? delhiMalls : mumbaiMalls;
-  const pricesByMall = isMalad ? maladPrices : (isDelhi ? delhiPrices : mumbaiPrices);
+const malls = isDelhi ? delhiMalls : isPune ? puneMalls : mumbaiMalls;
+
+const pricesByMall = isMalad
+  ? maladPrices
+  : isDelhi
+  ? delhiPrices
+  : isPune
+  ? punePrices
+  : mumbaiPrices;
+
 
   const visiblePackages = packages
     .map((pkg, index) => ({
@@ -146,13 +174,14 @@ const ExploreSection = ({ city }) => {
     }))
     .filter((pkg) => pkg.price !== "");
 
-  return (  
-   <div className={`${
-  visiblePackages.length === 2
-    ? " md:h-[880px] h-[1400px]"
-    : "sm:h-[1360px] md:h-[1480px] h-[1943px]"
-} lg:h-[800px]  `}>
-
+  return (
+    <div
+      className={`${
+        visiblePackages.length === 2
+          ? " md:h-[880px] h-[1400px]"
+          : "sm:h-[1360px] md:h-[1480px] h-[1943px]"
+      } lg:h-[800px]  `}
+    >
       <section className="bg-[#003466] md:h-[460px] lg:h-[390px] h-[430px] py-5 px-2 md:px-4">
         <div className="max-w-6xl mx-auto flex flex-col lg:flex-row items-start lg:items-center justify-between gap-3 lg:gap-10">
           {/* Left Content */}
@@ -239,7 +268,9 @@ const ExploreSection = ({ city }) => {
                     <h2 className="md:text-3xl text-2xl font-extrabold">
                       {pkg.title}
                     </h2>
-                    <p className="text-[12px] font-medium md:text-sm">{pkg.subtitle}</p>
+                    <p className="text-[12px] font-medium md:text-sm">
+                      {pkg.subtitle}
+                    </p>
                   </div>
                 </div>
 
@@ -258,12 +289,15 @@ const ExploreSection = ({ city }) => {
                     {pkg.label}
                   </p>
                   <p className="md:text-4xl text-3xl font-black">{pkg.price}</p>
-                  <button onClick={() => {
-    const section = document.getElementById("form");
-    if (section) {
-      section.scrollIntoView({ behavior: "smooth" });
-    }
-  }} className="mt-2 cursor-pointer md:px-6 px-3 py-1 md:py-2 bg-white text-[#002550] font-bold rounded-sm shadow-md hover:bg-gray-200 transition">
+                  <button
+                    onClick={() => {
+                      const section = document.getElementById("form");
+                      if (section) {
+                        section.scrollIntoView({ behavior: "smooth" });
+                      }
+                    }}
+                    className="mt-2 cursor-pointer md:px-6 px-3 py-1 md:py-2 bg-white text-[#002550] font-bold rounded-sm shadow-md hover:bg-gray-200 transition"
+                  >
                     Book Online
                   </button>
                 </div>

@@ -33,17 +33,23 @@ const venueOptions = {
     "Pacific Mall Tagore Garden",
     "Vegas Mall Delhi",
   ],
+  pune:[
+    "Seasons Mall Pune",
+    "Phoenix Marketcity Pune",
+    "Phoenix Mall of the Millennium Pune"
+  ]
 };
 
 export default function BannerSlider() {
   const pathname = usePathname();
   const isMaladPage = pathname?.includes("/malad");
   // Determine initial venues based on pathname (available on server)
-  const getInitialVenues = () => {
-    return pathname?.includes("/delhi")
-      ? venueOptions.delhi
-      : venueOptions.mumbai;
-  };
+ const getInitialVenues = () => {
+  if (pathname?.includes("/delhi")) return venueOptions.delhi;
+  if (pathname?.includes("/pune")) return venueOptions.pune;
+  return venueOptions.mumbai;
+};
+
 
   /* ――― State & helpers ――― */
   const [currentVenues] = useState(getInitialVenues());
