@@ -70,7 +70,7 @@ const TimeGallery = () => {
       </div>
 
       {/* Slider */}
-      <div className="relative w-full max-w-[1390px] mx-auto px-1 md:px-4 mt-13 overflow-hidden">
+      <div className="relative w-full max-w-[1390px] mx-auto px-1 md:px-4 mt-5 md:mt-13 overflow-hidden">
         <div className="relative aspect-[24/9] w-full overflow-hidden">
           {isSliderEnabled ? (
             <div className="w-full h-full relative">
