@@ -37,7 +37,7 @@ const venueOptions = {
 
 export default function BannerSlider() {
   const pathname = usePathname();
-
+  const isMaladPage = pathname?.includes("/malad");
   // Determine initial venues based on pathname (available on server)
   const getInitialVenues = () => {
     return pathname?.includes("/delhi")
@@ -99,7 +99,9 @@ export default function BannerSlider() {
         .matches(/^\d{10}$/, "Phone number must be exactly 10 digits"),
       email: Yup.string().email("Invalid email").required("Email is required"),
       date: Yup.date().required("Date is required").nullable(),
-      venue: Yup.string().required("Please select a venue"),
+venue: isMaladPage
+  ? Yup.string().nullable()
+  : Yup.string().required("Please select a venue"),
       terms: Yup.boolean().oneOf([true], "You must accept the terms"),
     }),
     onSubmit: async (values, { resetForm }) => {
@@ -128,7 +130,7 @@ export default function BannerSlider() {
 
       try {
         await fetch(
-          "https://script.google.com/macros/s/AKfycbwcedZP1_ac07FWipEUmSqIWd2Sl4ut5DRJvY7cXgc6A7ON3s7QhpGahebXmSliqV_B/exec",
+          "https://script.google.com/macros/s/AKfycbxaBbo-AvT_8OfwcbWeSsmLno88udsW4CFQ5m6KarJKu2bvjW6rZkSp5Q0DdU5u8bgt/exec",
           {
             method: "POST",
             mode: "no-cors",
@@ -295,34 +297,34 @@ export default function BannerSlider() {
   )}
 </div>
 
-              {/* Venue */}
-              <div>
-                <select
-                  name="venue"
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  value={formik.values.venue}
-                  className={`w-full border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-200 ${
-                    formik.touched.venue && formik.errors.venue
-                      ? "border-red-500 bg-red-50"
-                      : "border-gray-300"
-                  } ${formik.values.venue ? "text-black" : "text-gray-500"}`}
-                >
-                  <option value="" disabled>
-                    Select your Venue *
-                  </option>
-                  {currentVenues.map((venue, index) => (
-                    <option key={index} value={venue}>
-                      {venue}
-                    </option>
-                  ))}
-                </select>
-                {formik.touched.venue && formik.errors.venue && (
-                  <p className="text-red-500 text-xs mt-1">
-                    {formik.errors.venue}
-                  </p>
-                )}
-              </div>
+      {!isMaladPage && (
+  <div>
+    <select
+      name="venue"
+      onChange={formik.handleChange}
+      onBlur={formik.handleBlur}
+      value={formik.values.venue}
+      className={`w-full border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-200 ${
+        formik.touched.venue && formik.errors.venue
+          ? "border-red-500 bg-red-50"
+          : "border-gray-300"
+      } ${formik.values.venue ? "text-black" : "text-gray-500"}`}
+    >
+      <option value="" disabled>
+        Select your Venue *
+      </option>
+      {currentVenues.map((venue, index) => (
+        <option key={index} value={venue}>
+          {venue}
+        </option>
+      ))}
+    </select>
+    {formik.touched.venue && formik.errors.venue && (
+      <p className="text-red-500 text-xs mt-1">{formik.errors.venue}</p>
+    )}
+  </div>
+)}
+
 
               {/* Terms & Conditions */}
               <div className="flex items-start space-x-2">

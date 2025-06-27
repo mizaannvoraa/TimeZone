@@ -81,9 +81,9 @@ const VideoSection = () => {
   const canGoNext = scrollIndex < videos.length - VISIBLE_COUNT
 
   return (
-    <div className="w-full px-4 py-8 md:py-12 flex flex-col items-center bg-gray-50">
+    <div className="w-full px-2 py-6 md:py-12 flex flex-col items-center bg-gray-50">
       {/* Main Video Player Facade */}
-      <div className="relative w-full max-w-3xl aspect-video rounded-2xl overflow-hidden shadow-2xl mb-8">
+      <div className="relative w-full max-w-3xl aspect-video rounded-2xl overflow-hidden shadow-2xl md:mb-10 mb-4">
         {!isMainVideoLoaded ? (
           <div
             className="relative w-full h-full cursor-pointer group"
@@ -133,7 +133,7 @@ const VideoSection = () => {
           <FaChevronLeft className="text-[13px] md:text-xl" />
         </button> */}
 
-        <div className="flex overflow-hidden w-full mx-8 md:mx-16">
+        <div className="flex overflow-hidden w-full mx-0 md:mx-12">
           <div className="flex gap-[6px] md:gap-4 md:p-2 p-1 w-full">
             {visibleVideos.map((video, index) => {
               const actualIndex = scrollIndex + index

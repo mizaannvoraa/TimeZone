@@ -7,8 +7,9 @@ import { usePathname } from "next/navigation";
 const ExploreSection = ({ city }) => {
   const pathname = usePathname();
 
-  // Detect if route contains /delhi
+  // Detect if route contains /delhi or /malad
   const isDelhi = pathname.startsWith("/delhi");
+  const isMalad = pathname.startsWith("/malad");
 
   // Delhi malls and prices
   const delhiMalls = React.useMemo(
@@ -54,6 +55,11 @@ const ExploreSection = ({ city }) => {
     gtk: ["₹1,500", "₹2,000", "₹3,000"],
     krl: ["₹1,500", "₹2,000", "₹3,000"],
     xpe: ["₹1,500", "₹2,000", ""],
+  };
+
+  // Malad specific pricing - only Classic and Premium
+  const maladPrices = {
+    malad: ["₹1,099", "₹1,399", ""], // Classic, Premium, Ultimate (empty)
   };
 
   // Packages remain the same
@@ -110,15 +116,20 @@ const ExploreSection = ({ city }) => {
 
   // State for selected mall
   // Default to first key of current malls based on route
-  const [selectedMall, setSelectedMall] = useState(() =>
-    isDelhi ? Object.keys(delhiMalls)[0] : Object.keys(mumbaiMalls)[0]
-  );
+  const [selectedMall, setSelectedMall] = useState(() => {
+    if (isMalad) return "malad";
+    return isDelhi ? Object.keys(delhiMalls)[0] : Object.keys(mumbaiMalls)[0];
+  });
 
   useEffect(() => {
-    setSelectedMall(
-      isDelhi ? Object.keys(delhiMalls)[0] : Object.keys(mumbaiMalls)[0]
-    );
-  }, [isDelhi, delhiMalls, mumbaiMalls]);
+    if (isMalad) {
+      setSelectedMall("malad");
+    } else {
+      setSelectedMall(
+        isDelhi ? Object.keys(delhiMalls)[0] : Object.keys(mumbaiMalls)[0]
+      );
+    }
+  }, [isDelhi, isMalad, delhiMalls, mumbaiMalls]);
 
   const handleChange = (e) => {
     setSelectedMall(e.target.value);
@@ -126,13 +137,14 @@ const ExploreSection = ({ city }) => {
 
   // Decide malls and prices based on route
   const malls = isDelhi ? delhiMalls : mumbaiMalls;
-  const pricesByMall = isDelhi ? delhiPrices : mumbaiPrices;
-const visiblePackages = packages
-  .map((pkg, index) => ({
-    ...pkg,
-    price: pricesByMall[selectedMall]?.[index] || "",
-  }))
-  .filter((pkg) => pkg.price !== "");
+  const pricesByMall = isMalad ? maladPrices : (isDelhi ? delhiPrices : mumbaiPrices);
+
+  const visiblePackages = packages
+    .map((pkg, index) => ({
+      ...pkg,
+      price: pricesByMall[selectedMall]?.[index] || "",
+    }))
+    .filter((pkg) => pkg.price !== "");
 
   return (  
    <div className={`${
@@ -155,31 +167,43 @@ const visiblePackages = packages
             </p>
           </div>
 
-          {/* Right Dropdown */}
-          <div className="w-full lg:w-1/2 flex flex-col items-center  justify-center">
-            <label
-              htmlFor="mallSelect"
-              className="block text-white text-[16px] sm:text-[18px] font-semibold mb-2"
-            >
-              Please Select a Mall:
-            </label>
-            <div className="relative">
-              <select
-                id="mallSelect"
-                value={selectedMall}
-                onChange={handleChange}
-                className="appearance-none w-full bg-white text-gray-900 md:text-base text-[15px] md:px-4 px-2 py-[6px] md:py-3 rounded-lg shadow-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              >
-                {Object.entries(malls).map(([key, name]) => (
-                  <option key={key} value={key}>
-                    {name}
-                  </option>
-                ))}
-              </select>
-              <div className="absolute inset-y-0 md:right-4 right-2  flex items-center pointer-events-none text-gray-500">
-                ▼
+          {/* Right Content - Dropdown or Mall Text */}
+          <div className="w-full lg:w-1/2 flex flex-col items-center justify-center">
+            {isMalad ? (
+              // For Malad route - show mall name instead of dropdown
+              <div className="text-center">
+                <h2 className="text-white text-[18px] sm:text-[20px] md:text-[25px] font-semibold">
+                  Inorbit Mall Malad Mumbai 02 TZ
+                </h2>
               </div>
-            </div>
+            ) : (
+              // For other routes - show dropdown
+              <>
+                <label
+                  htmlFor="mallSelect"
+                  className="block text-white text-[16px] sm:text-[18px] font-semibold mb-2"
+                >
+                  Please Select a Mall:
+                </label>
+                <div className="relative">
+                  <select
+                    id="mallSelect"
+                    value={selectedMall}
+                    onChange={handleChange}
+                    className="appearance-none w-full bg-white text-gray-900 md:text-base text-[15px] md:px-4 px-2 py-[6px] md:py-3 rounded-lg shadow-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  >
+                    {Object.entries(malls).map(([key, name]) => (
+                      <option key={key} value={key}>
+                        {name}
+                      </option>
+                    ))}
+                  </select>
+                  <div className="absolute inset-y-0 md:right-4 right-2 flex items-center pointer-events-none text-gray-500">
+                    ▼
+                  </div>
+                </div>
+              </>
+            )}
           </div>
         </div>
 
