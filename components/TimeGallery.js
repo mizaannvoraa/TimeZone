@@ -10,11 +10,11 @@ const TimeGallery = () => {
   const isSliderEnabled = pathname.includes("/malad");
 
   const images = [
-    { src: "/assets/photogallery.webp", alt: "Gallery Image 1" },
+    { src: "/assets/Photogallery.webp", alt: "Gallery Image 1" },
     { src: "/assets/photogallery2.webp", alt: "Gallery Image 2" },
-    { src: "/assets/photogallery.webp", alt: "Gallery Image 3" },
+    { src: "/assets/Photogallery.webp", alt: "Gallery Image 3" },
     { src: "/assets/photogallery2.webp", alt: "Gallery Image 4" },
-    { src: "/assets/photogallery.webp", alt: "Gallery Image 5" },
+    { src: "/assets/Photogallery.webp", alt: "Gallery Image 5" },
     { src: "/assets/photogallery2.webp", alt: "Gallery Image 6" },
   ];
 
