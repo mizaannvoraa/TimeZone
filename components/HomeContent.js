@@ -9,10 +9,14 @@ import WhatcanBelowSec from "@/components/WhatcanBelowSec";
 import WhatCanSection from "@/components/WhatCanSection";
 import WhyChoose from "@/components/WhyChoose";
 import WhyTimezoneSection from "@/components/WhyTimezoneSection";
+import Head from "next/head";
 
 export default function HomeContent({ city = "delhi" }) {
   return (
     <>
+     <Head>
+        <meta name="robots" content="noindex, nofollow" />
+      </Head>
     <BannerSlider/>
       <WhyTimezoneSection/>
       <VideoGallery/>
