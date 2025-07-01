@@ -23,19 +23,13 @@ const ServiceFeatures = () => {
       image: "/assets/whychbel2.png",
       bgColor: "bg-[#003466]",
     },
-    {
-      title: "SAFE AND SECURE",
-      description:
-        "Safety is our top priority, ensuring a worry-free environment for you and the little ones.",
-      image: "/assets/wychbel1.webp",
-      bgColor: "bg-[#003466]",
-    },
+   
   ];
 
   return (
     <div className="w-full py-15 px-4 bg-gray-50 md:py-20">
       <div className="max-w-6xl mx-auto">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-4">
           {features.map((feature, index) => (
             <div key={index} className="flex flex-col h-full shadow-xl">
               {/* Header Section */}
