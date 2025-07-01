@@ -31,7 +31,7 @@ const ExploreSection = ({ city }) => {
     gaur: ["₹1,500", "₹2,000", ""],
     mgf: ["₹1,500", "₹2,000", ""],
     pacnit: ["₹1,200", "₹1,750", ""],
-    pactag: ["₹1,500", "₹2,000", ""],
+    pactag: ["₹1,500", "₹2,000",  "₹3,000"],
     vegas: ["₹1,500", "₹2,000", ""],
   };
 
@@ -66,14 +66,14 @@ const ExploreSection = ({ city }) => {
   );
 
   const punePrices = {
-    smp: ["₹1,099", "₹1,399", ""],
-    pmp: ["₹1,099", "₹1,399",""],
-    pmm: ["₹1,099", "₹1,399", ""],
+    smp: ["₹1,500", "₹2,000", ""],
+    pmp: ["₹1,500", "₹2,000","3,000"],
+    pmm: ["₹1,500", "₹2,000","3,000"],
   };
 
   // Malad specific pricing - only Classic and Premium
   const maladPrices = {
-    malad: ["₹1,099", "₹1,399", ""], // Classic, Premium, Ultimate (empty)
+    malad: ["₹2,000", "₹3,000", ""], // Classic, Premium, Ultimate (empty)
   };
 
   // Packages remain the same
@@ -81,7 +81,7 @@ const ExploreSection = ({ city }) => {
     {
       title: "CLASSIC",
       subtitle: "REMARKABLE BIRTHDAY PARTY PACKAGE",
-      image: "/assets/cardim1.jpg",
+      image: "/assets/pkimage.jpg",
       features: [
         "60 minutes unlimited Video and ticket games",
         "5 Prize Games",
@@ -97,7 +97,7 @@ const ExploreSection = ({ city }) => {
     {
       title: "PREMIUM",
       subtitle: "REMARKABLE BIRTHDAY PARTY PACKAGE",
-      image: "/assets/cardim2.jpg",
+      image: "/assets/pkimage.jpg",
       features: [
         "90 minutes unlimited Video and ticket games",
         "10 Prize Games",
@@ -113,7 +113,7 @@ const ExploreSection = ({ city }) => {
     {
       title: "ULTIMATE",
       subtitle: "BIRTHDAY PARTY PACKAGE",
-      image: "/assets/cardim3.jpg",
+      image: "/assets/pkimage.jpg",
       features: [
         "90 minutes unlimited Video and ticket games",
         "15 Prize Games",

@@ -10,6 +10,7 @@ import WhatCanSection from "@/components/WhatCanSection";
 import WhyChoose from "@/components/WhyChoose";
 import WhyTimezoneSection from "@/components/WhyTimezoneSection";
 import Head from "next/head";
+import EnquireNowButton from "./EnquireNowButton";
 
 export default function HomeContent({ city = "delhi" }) {
   return (
@@ -27,6 +28,7 @@ export default function HomeContent({ city = "delhi" }) {
        <WhyChoose/>
       <ServiceFeatures/>
       <FaqSection/>
+      <EnquireNowButton/>
     </>
   );
 }
