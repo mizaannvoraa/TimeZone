@@ -27,7 +27,7 @@ const ServiceFeatures = () => {
   ];
 
   return (
-    <div className="w-full py-15 px-4 bg-gray-50 md:py-20">
+    <div className="w-full py-15 px-4 bg-gray-50 md:py-20" id="Why-Choose-Timezone">
       <div className="max-w-6xl mx-auto">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-4">
           {features.map((feature, index) => (

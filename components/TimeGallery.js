@@ -61,9 +61,9 @@ const TimeGallery = () => {
   }
 
   return (
-    <div>
+    <div id="Timezone-Gallery">
       {/* Header */}
-      <div className="bg-[#003466] shadow-2xl mt-15 py-6">
+      <div className="bg-[#003466] shadow-2xl mt-15 py-6" >
         <h1 className="lg:text-3xl text-center text-white md:text-2xl text-xl font-bold">
           TIMEZONE GALLERY
         </h1>

@@ -7,7 +7,7 @@ import {
 
 export default function Footer() {
   return (
-    <footer className="bg-[#003a70]  text-white">
+    <footer className="bg-[#003a70] md:pb-0 pb-10 text-white">
       <div className="w-full max-w-6xl px-1  mx-auto">
         <div className="relative w-36  h-12 sm:w-44 sm:h-14 md:w-52 md:h-16">
           <Image

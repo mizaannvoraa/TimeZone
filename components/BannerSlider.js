@@ -96,7 +96,7 @@ export default function BannerSlider() {
       email: "",
       date: null,
       venue: "",
-      terms: false,
+      terms: true,
     },
     validationSchema: Yup.object({
       fullName: Yup.string().required("Full name is required"),
@@ -340,8 +340,9 @@ venue: isMaladPage
                   name="terms"
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
-                  checked={formik.values.terms}
+                  // checked={formik.values.terms}
                   className="mt-1 h-4 w-4 text-blue-600 border border-gray-300 rounded focus:ring-blue-500"
+                  checked
                 />
                 <label
                   htmlFor="terms"

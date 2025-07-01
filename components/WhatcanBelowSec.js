@@ -2,6 +2,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 
 const highlights = [
   {
@@ -38,7 +39,7 @@ const highlights = [
 
 export default function WhatcanBelowSec() {
   return (
-    <section className="px-4 py-10 sm:px-6 w-full max-w-6xl mx-auto lg:px-16">
+    <section className="px-4 pt-10 sm:px-6 w-full max-w-6xl mx-auto lg:px-16">
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {highlights.map((item, index) => (
           <div
@@ -59,6 +60,18 @@ export default function WhatcanBelowSec() {
             </p>
           </div>
         ))}
+      </div>
+      <div className="flex items-center justify-center">
+        <button
+        onClick={() => {
+          const section = document.getElementById("form");
+          if (section) {
+            section.scrollIntoView({ behavior: "smooth" });
+          }
+        }}
+        className="md:mt-13 mt-10 cursor-pointer md:px-6 px-3 text-[18px] border-0 py-1 md:py-2 bg-[#003466]  text-white font-medium rounded-sm shadow-md hover:bg-[#003566ed] transition"
+      >
+Learn more      </button>{" "}
       </div>
     </section>
   );

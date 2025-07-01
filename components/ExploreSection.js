@@ -182,7 +182,7 @@ const pricesByMall = isMalad
           : "sm:h-[1360px] md:h-[1480px] h-[1963px]"
       } lg:h-[800px]  `}
     >
-      <section className="bg-[#003466] md:h-[460px] lg:h-[390px] h-[430px] py-5 px-2 md:px-4">
+      <section className="bg-[#003466] md:h-[460px] lg:h-[390px] h-[430px] py-5 px-2 md:px-4" id="Birthday-Party-Packages">
         <div className="max-w-6xl mx-auto flex flex-col lg:flex-row items-start lg:items-center justify-between gap-3 lg:gap-10">
           {/* Left Content */}
           <div className="w-full lg:w-1/2">
@@ -298,7 +298,7 @@ const pricesByMall = isMalad
                     }}
                     className="mt-2 cursor-pointer md:px-6 px-3 py-1 md:py-2 bg-white text-[#002550] font-bold rounded-sm shadow-md hover:bg-gray-200 transition"
                   >
-                    Book Online
+                    Enquire Now
                   </button>
                 </div>
               </div>

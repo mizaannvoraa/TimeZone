@@ -4,7 +4,7 @@ import Image from "next/image";
 
 export default function WhyTimezoneSection() {
   return (
-    <section className="bg-white py-8 lg:py-17 px-4">
+    <section className="bg-white py-8 lg:py-17 px-4" id="Why-Timezone-For-Birthday">
       <div className="max-w-6xl mx-auto flex flex-col lg:flex-row items-center gap-10">
         {/* Text Content */}
         <div className="lg:w-1/2">
