@@ -141,6 +141,7 @@ const ExploreSection = ({ city }) => {
           "Dedicated Party Host",
           "Power Card and Lanyard",
           "1 Individual Meal per child (Beverage & Main course)",
+          "", // Empty placeholder for alignment
         ];
       } else if (packageIndex === 1) { // Premium
         return [
@@ -158,6 +159,7 @@ const ExploreSection = ({ city }) => {
           "Dedicated Party Host",
           "Power Card and Lanyard",
           "1 Individual Meal per Child (Beverage, Starter & Main course)",
+          "", // Empty placeholder for alignment
         ];
       }
     }
@@ -169,29 +171,38 @@ const ExploreSection = ({ city }) => {
       if (packageIndex === 0) { // Classic
         features[1] = "3 Prize Games"; // Change from 5 to 3
         features[2] = "1 Attraction"; // Change from 2 to 1
-        features[3] = "500 Power Tickets per Child"; // Change from 2 to 1
-        features[4] = "1,500 Power Tickets for Birthday Child"; // Change from 2 to 1
-        features[5] = "Dedicated Party Space - 60 mins"; // Change from 2 to 1
+        features[3] = "500 Power Tickets per Child"; // Change from 1000 to 500
+        features[4] = "1,500 Power Tickets for Birthday Child"; // Change from 3000 to 1500
+        features[5] = "Dedicated Party Space - 60 mins"; // Change from 90 to 60
       } else if (packageIndex === 1) { // Premium
         features[1] = "6 Prize Games"; // Change from 10 to 6
         features[2] = "2 Attractions"; // Change from 3 to 2
-        features[3] = "1,000 Power Tickets per Child"; // Change from 2 to 1
-        features[4] = "3,000 Power Tickets for Birthday Child"; // Change from 2 to 1
-
+        features[3] = "1,000 Power Tickets per Child"; // Change from 1500 to 1000
+        features[4] = "3,000 Power Tickets for Birthday Child"; // Change from 4500 to 3000
       }
     }
 
-    // Add special features for Pune Ultimate package
-    if (isPune && packageIndex === 2) { // Ultimate package
-      features.push("Individual Meal Included (Beverage & Main course)");
-    }
+    // Determine if the current mall configuration has Ultimate package with meal
+    const currentMallHasUltimateMeal = (isPune) || 
+                                      (isDelhi && selectedMall === "pactag") || 
+                                      (!isDelhi && !isPune && !isMalad && (selectedMall === "gtk" || selectedMall === "lp" || selectedMall === "krl"));
 
-    // Add Individual Meal for specific malls' Ultimate packages
+    // Add Individual Meal for Ultimate packages at specific malls
     if (packageIndex === 2) { // Ultimate package
       if ((isDelhi && selectedMall === "pactag") || // Pacific Mall Tagore Garden
           (!isDelhi && !isPune && !isMalad && (selectedMall === "gtk" || selectedMall === "lp"|| selectedMall === "krl"))) { // RCity Ghatkopar & Phoenix Lower Parel
         features.push("Individual Meal Included (Beverage & Main course)");
       }
+    }
+
+    // Add Individual Meal for Pune Ultimate packages
+    if (isPune && packageIndex === 2) { // Ultimate package
+      features.push("Individual Meal Included (Beverage & Main course)");
+    }
+
+    // Add empty placeholder line for Classic and Premium when Ultimate has meal (for proper alignment)
+    if (currentMallHasUltimateMeal && packageIndex < 2) {
+      features.push(""); // Empty line to match Ultimate package height
     }
 
     return features;
@@ -267,10 +278,10 @@ const ExploreSection = ({ city }) => {
     <div
   className={`${
     isMalad
-      ? "md:h-[1000px] sm:h-[940px] h-[1655px] lg:h-[1010px]"
+      ? "md:h-[1050px] sm:h-[970px] h-[1710px] lg:h-[1010px]"
       : visiblePackages.length === 2
-      ? "md:h-[850px] sm:h-[810px] h-[1400px] lg:h-[830px]"
-      : "sm:h-[1420px] md:h-[1500px] h-[1995px] lg:h-[830px]"
+      ? "md:h-[870px] sm:h-[810px] h-[1420px] lg:h-[850px]"
+      : "sm:h-[1460px] md:h-[1590px] h-[2045px] lg:h-[850px]"
   }`}
 >
 
@@ -369,7 +380,7 @@ const ExploreSection = ({ city }) => {
 
                 <div className="px-4 py-3 space-y-1 md:space-y-2">
                   {pkg.features.map((feature, i) => (
-                    <p key={i} className="text-sm leading-relaxed">
+                    <p key={i} className="text-sm leading-relaxed min-h-[16px]">
                       {feature}
                     </p>
                   ))}
