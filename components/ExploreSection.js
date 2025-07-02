@@ -10,6 +10,7 @@ const ExploreSection = ({ city }) => {
   // Detect if route contains /delhi or /malad
   const isDelhi = pathname.startsWith("/delhi");
   const isMalad = pathname.startsWith("/malad");
+  const isPune = pathname.startsWith("/pune");
 
   // Delhi malls and prices
   const delhiMalls = React.useMemo(
@@ -56,6 +57,7 @@ const ExploreSection = ({ city }) => {
     krl: ["₹1,500", "₹2,000", "₹3,000"],
     xpe: ["₹1,500", "₹2,000", ""],
   };
+
   const puneMalls = React.useMemo(
     () => ({
       smp: "Seasons Mall Pune",
@@ -67,8 +69,8 @@ const ExploreSection = ({ city }) => {
 
   const punePrices = {
     smp: ["₹1,500", "₹2,000", ""],
-    pmp: ["₹1,500", "₹2,000","3,000"],
-    pmm: ["₹1,500", "₹2,000","3,000"],
+    pmp: ["₹1,500", "₹2,000","₹3,000"],
+    pmm: ["₹1,500", "₹2,000","₹3,000"],
   };
 
   // Malad specific pricing - only Classic and Premium
@@ -76,112 +78,202 @@ const ExploreSection = ({ city }) => {
     malad: ["₹2,000", "₹3,000", ""], // Classic, Premium, Ultimate (empty)
   };
 
-  // Packages remain the same
+  // Function to get features based on location and package
+  const getPackageFeatures = (packageIndex, selectedMall) => {
+    // Base packages features
+    const basePackages = [
+      {
+        title: "CLASSIC",
+        features: [
+          "60 minutes unlimited Video and ticket games",
+          "5 Prize Games",
+          "2 Attractions",
+          "1,000 Power Tickets per Child",
+          "3,000 Power Tickets for Birthday Child",
+          "Dedicated Party Space - 90 mins",
+          "Dedicated Party Host",
+          "Power Card and Lanyard",
+        ],
+      },
+      {
+        title: "PREMIUM",
+        features: [
+          "90 minutes unlimited Video and ticket games",
+          "10 Prize Games",
+          "3 Attractions",
+          "1,500 Power Tickets per Child",
+          "4,500 Power Tickets for Birthday Child",
+          "Dedicated Party Space - 120 mins",
+          "Dedicated Party Host",
+          "Power Card and Lanyard",
+        ],
+      },
+      {
+        title: "ULTIMATE",
+        features: [
+          "90 minutes unlimited Video and ticket games",
+          "15 Prize Games",
+          "5 Attractions",
+          "2,000 Power Tickets per Child",
+          "6,000 Power Tickets for Birthday Child",
+          "Dedicated Party Space - 120 mins",
+          "Dedicated Party Host",
+          "Power Card and Lanyard",
+        ],
+      },
+    ];
+
+    // Special handling for Malad - completely different feature sets
+    if (isMalad) {
+      if (packageIndex === 0) { // Classic
+        return [
+          "60 mins of Play Time",
+          "Unlimited Video and Ticket Games",
+          "5 Prize Games",
+          "1 Bowling",
+          "1 Attraction Game",
+          "1 Laser Tag",
+          "1 Bumper Car",
+          "1 Photo Booth Panther Revolution",
+          "1,000 Power Tickets per Child",
+          "3,000 Power Tickets for Birthday Child",
+          "Dedicated Party Space - 90 mins",
+          "Dedicated Party Host",
+          "Power Card and Lanyard",
+          "1 Individual Meal per child (Beverage & Main course)",
+        ];
+      } else if (packageIndex === 1) { // Premium
+        return [
+          "90 mins of Play Time",
+          "Unlimited Video and Ticket Games",
+          "10 Prize Games",
+          "1 Bowling",
+          "2 Attraction Games",
+          "1 Laser Tag",
+          "1 Bumper Car",
+          "1 Photo Booth Panther Revolution",
+          "2,500 Power Tickets per Child",
+          "7,500 Power Ticket for Birthday Child",
+          "Dedicated Party Space - 120 mins",
+          "Dedicated Party Host",
+          "Power Card and Lanyard",
+          "1 Individual Meal per Child (Beverage, Starter & Main course)",
+        ];
+      }
+    }
+
+    let features = [...basePackages[packageIndex].features];
+
+    // Special handling for Pacific Mall NIT Faridabad
+    if (isDelhi && selectedMall === "pacnit") {
+      if (packageIndex === 0) { // Classic
+        features[1] = "3 Prize Games"; // Change from 5 to 3
+        features[2] = "1 Attraction"; // Change from 2 to 1
+        features[3] = "500 Power Tickets per Child"; // Change from 2 to 1
+        features[4] = "1,500 Power Tickets for Birthday Child"; // Change from 2 to 1
+        features[5] = "Dedicated Party Space - 60 mins"; // Change from 2 to 1
+      } else if (packageIndex === 1) { // Premium
+        features[1] = "6 Prize Games"; // Change from 10 to 6
+        features[2] = "2 Attractions"; // Change from 3 to 2
+        features[3] = "1,000 Power Tickets per Child"; // Change from 2 to 1
+        features[4] = "3,000 Power Tickets for Birthday Child"; // Change from 2 to 1
+
+      }
+    }
+
+    // Add special features for Pune Ultimate package
+    if (isPune && packageIndex === 2) { // Ultimate package
+      features.push("Individual Meal Included (Beverage & Main course)");
+    }
+
+    // Add Individual Meal for specific malls' Ultimate packages
+    if (packageIndex === 2) { // Ultimate package
+      if ((isDelhi && selectedMall === "pactag") || // Pacific Mall Tagore Garden
+          (!isDelhi && !isPune && !isMalad && (selectedMall === "gtk" || selectedMall === "lp"|| selectedMall === "krl"))) { // RCity Ghatkopar & Phoenix Lower Parel
+        features.push("Individual Meal Included (Beverage & Main course)");
+      }
+    }
+
+    return features;
+  };
+
+  // Packages with dynamic features
   const packages = [
     {
       title: "CLASSIC",
       subtitle: "REMARKABLE BIRTHDAY PARTY PACKAGE",
       image: "/assets/pkimage.jpg",
-      features: [
-        "60 minutes unlimited Video and ticket games",
-        "5 Prize Games",
-        "2 Attractions",
-        "1,000 Power Tickets per Child",
-        "3,000 Power Tickets for Birthday Child",
-        "Dedicated Party Space - 90 mins",
-        "Dedicated Party Host",
-        "Power Card and Lanyard",
-      ],
       label: "Classic Remarkable Party",
     },
     {
       title: "PREMIUM",
       subtitle: "REMARKABLE BIRTHDAY PARTY PACKAGE",
       image: "/assets/pkimage.jpg",
-      features: [
-        "90 minutes unlimited Video and ticket games",
-        "10 Prize Games",
-        "3 Attractions",
-        "1,500 Power Tickets per Child",
-        "4,500 Power Tickets for Birthday Child",
-        "Dedicated Party Space - 120 mins",
-        "Dedicated Party Host",
-        "Power Card and Lanyard",
-      ],
       label: "Premium Remarkable Party",
     },
     {
       title: "ULTIMATE",
       subtitle: "BIRTHDAY PARTY PACKAGE",
       image: "/assets/pkimage.jpg",
-      features: [
-        "90 minutes unlimited Video and ticket games",
-        "15 Prize Games",
-        "5 Attractions",
-        "2,000 Power Tickets per Child",
-        "6,000 Power Tickets for Birthday Child",
-        "Dedicated Party Space - 120 mins",
-        "Dedicated Party Host",
-        "Power Card and Lanyard",
-      ],
       label: "Ultimate Remarkable Party",
     },
   ];
-const isPune = pathname.startsWith("/pune");
 
   // State for selected mall
   // Default to first key of current malls based on route
-const [selectedMall, setSelectedMall] = useState(() => {
-  if (isMalad) return "malad";
-  if (isDelhi) return Object.keys(delhiMalls)[0];
-  if (isPune) return Object.keys(puneMalls)[0];
-  return Object.keys(mumbaiMalls)[0];
-});
+  const [selectedMall, setSelectedMall] = useState(() => {
+    if (isMalad) return "malad";
+    if (isDelhi) return Object.keys(delhiMalls)[0];
+    if (isPune) return Object.keys(puneMalls)[0];
+    return Object.keys(mumbaiMalls)[0];
+  });
 
-useEffect(() => {
-  if (isMalad) {
-    setSelectedMall("malad");
-  } else if (isDelhi) {
-    setSelectedMall(Object.keys(delhiMalls)[0]);
-  } else if (isPune) {
-    setSelectedMall(Object.keys(puneMalls)[0]);
-  } else {
-    setSelectedMall(Object.keys(mumbaiMalls)[0]);
-  }
-}, [isDelhi, isMalad, isPune, delhiMalls, mumbaiMalls, puneMalls]);
-
+  useEffect(() => {
+    if (isMalad) {
+      setSelectedMall("malad");
+    } else if (isDelhi) {
+      setSelectedMall(Object.keys(delhiMalls)[0]);
+    } else if (isPune) {
+      setSelectedMall(Object.keys(puneMalls)[0]);
+    } else {
+      setSelectedMall(Object.keys(mumbaiMalls)[0]);
+    }
+  }, [isDelhi, isMalad, isPune, delhiMalls, mumbaiMalls, puneMalls]);
 
   const handleChange = (e) => {
     setSelectedMall(e.target.value);
   };
 
   // Decide malls and prices based on route
-const malls = isDelhi ? delhiMalls : isPune ? puneMalls : mumbaiMalls;
+  const malls = isDelhi ? delhiMalls : isPune ? puneMalls : mumbaiMalls;
 
-const pricesByMall = isMalad
-  ? maladPrices
-  : isDelhi
-  ? delhiPrices
-  : isPune
-  ? punePrices
-  : mumbaiPrices;
-
+  const pricesByMall = isMalad
+    ? maladPrices
+    : isDelhi
+    ? delhiPrices
+    : isPune
+    ? punePrices
+    : mumbaiPrices;
 
   const visiblePackages = packages
     .map((pkg, index) => ({
       ...pkg,
       price: pricesByMall[selectedMall]?.[index] || "",
+      features: getPackageFeatures(index, selectedMall),
     }))
     .filter((pkg) => pkg.price !== "");
 
   return (
     <div
-      className={`${
-        visiblePackages.length === 2
-          ? " md:h-[850px] sm:h-[810px] h-[1400px]"
-          : "sm:h-[1360px] md:h-[1480px] h-[1963px]"
-      } lg:h-[800px]  `}
-    >
+  className={`${
+    isMalad
+      ? "md:h-[1000px] sm:h-[940px] h-[1655px] lg:h-[1010px]"
+      : visiblePackages.length === 2
+      ? "md:h-[850px] sm:h-[810px] h-[1400px] lg:h-[830px]"
+      : "sm:h-[1420px] md:h-[1500px] h-[1995px] lg:h-[830px]"
+  }`}
+>
+
       <section className="bg-[#003466] md:h-[460px] lg:h-[390px] h-[430px] py-5 px-2 md:px-4" id="Birthday-Party-Packages">
         <div className="max-w-6xl mx-auto flex flex-col lg:flex-row items-start lg:items-center justify-between gap-3 lg:gap-10">
           {/* Left Content */}
@@ -202,7 +294,7 @@ const pricesByMall = isMalad
               // For Malad route - show mall name instead of dropdown
               <div className="text-center">
                 <h2 className="text-white text-[18px] sm:text-[20px] md:text-[25px] font-semibold">
-                  Inorbit Mall Malad Mumbai 02 TZ
+                  Inorbit Mall Malad 
                 </h2>
               </div>
             ) : (
@@ -242,6 +334,7 @@ const pricesByMall = isMalad
             .map((pkg, index) => ({
               ...pkg,
               price: pricesByMall[selectedMall]?.[index] || "",
+              features: getPackageFeatures(index, selectedMall),
               isDisabled: !pricesByMall[selectedMall]?.[index],
               index,
             }))
