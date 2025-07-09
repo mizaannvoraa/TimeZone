@@ -44,7 +44,7 @@ export default function BannerSlider() {
   const pathname = usePathname();
   const router = useRouter();
   const isMaladPage = pathname?.includes("/malad");
-  
+
   // Determine initial venues based on pathname (available on server)
   const getInitialVenues = () => {
     if (pathname?.includes("/delhi")) return venueOptions.delhi;
@@ -54,6 +54,7 @@ export default function BannerSlider() {
 
   /* ――― State & helpers ――― */
   const [currentVenues] = useState(getInitialVenues());
+  const [showDateHelper, setShowDateHelper] = useState(false);
   const [urlParams, setUrlParams] = useState({
     utm_ad: "",
     utm_placement: "",
@@ -72,12 +73,12 @@ export default function BannerSlider() {
   useEffect(() => {
     const getUserIp = async () => {
       try {
-        const response = await fetch('https://api.ipify.org?format=json');
+        const response = await fetch("https://api.ipify.org?format=json");
         const data = await response.json();
         setUserIp(data.ip);
       } catch (error) {
-        console.error('Error getting IP:', error);
-        setUserIp('127.0.0.1'); // fallback
+        console.error("Error getting IP:", error);
+        setUserIp("127.0.0.1"); // fallback
       }
     };
     getUserIp();
@@ -88,13 +89,13 @@ export default function BannerSlider() {
     const getCookie = (name) => {
       const value = `; ${document.cookie}`;
       const parts = value.split(`; ${name}=`);
-      if (parts.length === 2) return parts.pop().split(';').shift();
+      if (parts.length === 2) return parts.pop().split(";").shift();
       return null;
     };
 
     const setCookie = (name, value, days = 90) => {
       const date = new Date();
-      date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+      date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
       const expires = `expires=${date.toUTCString()}`;
       document.cookie = `${name}=${value}; ${expires}; path=/`;
     };
@@ -106,24 +107,24 @@ export default function BannerSlider() {
     };
 
     // Get or create _fbc cookie
-    let fbc = getCookie('_fbc');
+    let fbc = getCookie("_fbc");
     if (!fbc) {
       // Check if fbclid exists in URL params
       const urlParams = new URLSearchParams(window.location.search);
-      const fbclid = urlParams.get('fbclid');
+      const fbclid = urlParams.get("fbclid");
       if (fbclid) {
         fbc = `fb.1.${Math.floor(Date.now() / 1000)}.${fbclid}`;
       } else {
-        fbc = generateFbCookie('fb');
+        fbc = generateFbCookie("fb");
       }
-      setCookie('_fbc', fbc);
+      setCookie("_fbc", fbc);
     }
 
     // Get or create _fbp cookie
-    let fbp = getCookie('_fbp');
+    let fbp = getCookie("_fbp");
     if (!fbp) {
-      fbp = generateFbCookie('fb');
-      setCookie('_fbp', fbp);
+      fbp = generateFbCookie("fb");
+      setCookie("_fbp", fbp);
     }
 
     setFbCookies({ fbc, fbp });
@@ -156,9 +157,6 @@ export default function BannerSlider() {
   const sendFacebookConversion = async (email, mobile) => {
     try {
       const currentTime = Math.floor(Date.now() / 1000);
-      
-   
-      
       const conversionData = {
         data: JSON.stringify([
           {
@@ -167,16 +165,17 @@ export default function BannerSlider() {
             user_data: {
               client_ip_address: userIp, // Dynamic IP
               fbc: fbCookies.fbc, // Dynamic Facebook cookie
-              fbp: fbCookies.fbp  // Dynamic Facebook cookie
+              fbp: fbCookies.fbp, // Dynamic Facebook cookie
             },
             custom_data: {
               landing_page_url: window.location.href,
               email: email, // Dynamic email from form
-              mobile: mobile // Dynamic mobile from form
-            }
-          }
+              mobile: mobile, // Dynamic mobile from form
+            },
+          },
         ]),
-        access_token: "EAAKZBZBu17IQEBPNtZAdxooLpawkbZBLqhYecZCLlMQWBBce5ZBmnzpMjguQjFH8ZBIe8deRGdq9rnjjbhBAuf5O13FK3SbdKQZBwRW7nl3WZCjksVrfau1UgUQJ4UKV9ZC0ZCYQtStykahnfZAxl7xsH6I0ecAdXwZCLpIQpZCcL5quecFyoEVKi8EscigkY5xK81KAZDZD"
+        access_token:
+          "EAAKZBZBu17IQEBPNtZAdxooLpawkbZBLqhYecZCLlMQWBBce5ZBmnzpMjguQjFH8ZBIe8deRGdq9rnjjbhBAuf5O13FK3SbdKQZBwRW7nl3WZCjksVrfau1UgUQJ4UKV9ZC0ZCYQtStykahnfZAxl7xsH6I0ecAdXwZCLpIQpZCcL5quecFyoEVKi8EscigkY5xK81KAZDZD",
       };
 
       const formData = new FormData();
@@ -186,33 +185,37 @@ export default function BannerSlider() {
 
       // First try without no-cors to get proper response
       try {
-        const response = await fetch("https://graph.facebook.com/v22.0/641348998976378/events", {
-          method: "POST",
-          body: formData
-        });
+        const response = await fetch(
+          "https://graph.facebook.com/v22.0/641348998976378/events",
+          {
+            method: "POST",
+            body: formData,
+          }
+        );
 
         if (response.ok) {
           const responseData = await response.json();
-      
+
           return responseData;
         } else {
-          console.error("❌ Facebook conversion failed with status:", response.status);
+          console.error(
+            "❌ Facebook conversion failed with status:",
+            response.status
+          );
           const errorData = await response.json();
           console.error("Error details:", errorData);
           throw new Error(`HTTP ${response.status}`);
         }
       } catch (corsError) {
-        
         // Fallback with no-cors
         await fetch("https://graph.facebook.com/v22.0/641348998976378/events", {
           method: "POST",
           body: formData,
-          mode: "no-cors"
+          mode: "no-cors",
         });
-        
+
         return { events_received: 1, message: "Sent with no-cors fallback" };
       }
-      
     } catch (error) {
       console.error("❌ Error sending Facebook conversion:", error);
       throw error;
@@ -235,7 +238,7 @@ export default function BannerSlider() {
         .required("Phone number is required")
         .matches(/^\d{10}$/, "Phone number must be exactly 10 digits"),
       email: Yup.string().email("Invalid email").required("Email is required"),
-      date: Yup.date().required("Date is required").nullable(),
+      date: Yup.date().required("Date is required"),
       venue: isMaladPage
         ? Yup.string().nullable()
         : Yup.string().required("Please select a venue"),
@@ -243,7 +246,6 @@ export default function BannerSlider() {
     }),
     onSubmit: async (values, { resetForm }) => {
       setIsSubmitting(true);
-      
 
       // Pull UTM values from state or localStorage
       const getParam = (key) =>
@@ -262,7 +264,6 @@ export default function BannerSlider() {
         utm_keyword: getParam("utm_keyword"),
       };
 
-
       // Convert to x‑www‑form‑urlencoded for Apps Script
       const body = new URLSearchParams();
       Object.entries(formData).forEach(([k, v]) => body.append(k, v));
@@ -280,11 +281,14 @@ export default function BannerSlider() {
         );
 
         // Send Facebook conversion event with dynamic data
-        const fbResponse = await sendFacebookConversion(values.email, values.phone);
-        
+        const fbResponse = await sendFacebookConversion(
+          values.email,
+          values.phone
+        );
+
         if (fbResponse) {
           // This will log something like: {"events_received":1,"messages":[],"fbtrace_id":"ASxkvhNwp4g9Aw2vRb3REPz"}
-          
+
           // Show success message with FB trace ID if available
           if (fbResponse.fbtrace_id) {
           }
@@ -292,10 +296,9 @@ export default function BannerSlider() {
 
         resetForm();
         setStatus("Form submitted successfully!");
-        
+
         // Navigate to thank you page
         router.push("/thank-you");
-        
       } catch (err) {
         console.error("❌ Error submitting form:", err);
         setStatus("Something went wrong. Please try again.");
@@ -429,13 +432,22 @@ export default function BannerSlider() {
               </div>
               {/* Date */}
               <div>
+                {showDateHelper && (
+                  <p className="text-black -ml-[2px] text-[12px] mb-[2px]">
+                    Minimum 3 day&apos;s notice is required
+                  </p>
+                )}
                 <DatePicker
                   selected={formik.values.date}
-                  onChange={(date) => formik.setFieldValue("date", date)}
+                  onChange={(date) => {
+                    formik.setFieldValue("date", date);
+                    setShowDateHelper(false); // Hide helper when date is selected
+                  }}
                   onBlur={() => formik.setFieldTouched("date", true)}
+                  onFocus={() => setShowDateHelper(true)}
                   placeholderText="Select Event Date *"
                   dateFormat="dd/MM/yyyy"
-                  minDate={new Date()} // Prevents selecting past dates
+                  minDate={new Date(Date.now() + 4 * 24 * 60 * 60 * 1000)} // 4 days from today
                   className={`w-full border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-200 ${
                     formik.touched.date && formik.errors.date
                       ? "border-red-500 bg-red-50"
@@ -444,6 +456,7 @@ export default function BannerSlider() {
                   wrapperClassName="w-full"
                   popperClassName="z-50"
                 />
+                {/* Helper text - only shows when user clicks on date input */}
                 {formik.touched.date && formik.errors.date && (
                   <p className="text-red-500 text-xs mt-1">
                     {formik.errors.date}
